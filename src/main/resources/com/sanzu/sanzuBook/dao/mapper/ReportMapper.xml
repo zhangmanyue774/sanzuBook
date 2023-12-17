@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace绑定mapper.xml和接口mapper-->
+<mapper namespace="com.sanzu.sanzuBook.dao.mapper.ReportMapper">
+<!--    List<ReportEntity> selectAll() throws IOException;-->
+    <select id="selectAll" resultType="ReportEntity">
+        select * from reportlist
+    </select>
+<!--    Integer insertNewReport(ReportEntity reportEntity) throws IOException;-->
+    <insert id="insertNewReport">
+        INSERT INTO reportlist (whistleblower, ReportedPerson,context, reason)
+        VALUES (#{whistleblower},#{ReportedPerson},#{context},#{reason})
+    </insert>
+<!--    Integer deleteOldReport(Integer id) throws IOException;-->
+    <delete id="deleteOldReport">
+        delete from reportlist where id = #{id}
+    </delete>
+<!--    updateIsDeal-->
+    <update id="updateIsDeal">
+        update reportlist set isDeal = true where id = #{id}
+    </update>
+</mapper>

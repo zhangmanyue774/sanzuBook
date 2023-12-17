@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace绑定mapper.xml和接口mapper-->
+<mapper namespace="com.sanzu.sanzuBook.dao.mapper.ReviewMapper">
+<!--    List<ReviewEntity> showReviewEntity(int startRow,int pageSize);-->
+    <select id="showReviewEntity" resultType="ReviewEntity">
+        SELECT *
+        FROM bookreview
+        ORDER BY id DESC
+        LIMIT #{startRow}, #{pageSize}
+    </select>
+<!--    Integer insertReview(ReviewEntity reviewEntity);-->
+    <insert id="insertReview">
+        INSERT INTO bookreview (username,review,title,cover,avatar,author,bookID,email)
+        VALUES (#{username},#{review},#{title},#{cover},#{avatar},#{author},#{bookID},#{email})
+    </insert>
+<!--    Integer deleteReview(
+                 @Param("username") String username,
+                 @Param("id") Integer id
+    );-->
+    <delete id="deleteReview">
+        DELETE FROM bookreview
+        WHERE username = #{username}
+            AND
+            id = #{id}
+    </delete>
+<!--        Integer increaseLikes(int id);-->
+    <update id="increaseLikes">
+        UPDATE bookreview
+        SET likes = likes + 1
+        WHERE id = #{id}
+    </update>
+<!--    Integer reduceLikes(int id);-->
+    <update id="reduceLikes">
+        UPDATE bookreview
+        SET likes = likes - 1
+        WHERE id = #{id}
+    </update>
+</mapper>

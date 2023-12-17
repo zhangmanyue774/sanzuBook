@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace绑定mapper.xml和接口mapper-->
+<mapper namespace="com.sanzu.sanzuBook.dao.mapper.BookMapper">
+<!--List<BookEntity> selectTitle(String title);-->
+    <select id="selectTitle" resultType="BookEntity">
+        SELECT * FROM booklist WHERE title LIKE CONCAT('%', #{title}, '%');
+    </select>
+<!--  List<BookEntity> selectAuthor(String author);  -->
+    <select id="selectAuthor" resultType="BookEntity">
+        SELECT * FROM booklist WHERE author LIKE CONCAT('%', #{author}, '%');
+    </select>
+<!--   List<BookEntity> selectType(); -->
+    <select id="selectType" resultType="BookEntity">
+        SELECT DISTINCT type FROM booklist;
+    </select>
+<!--List<BookEntity> selectTypeBook(String type);-->
+    <select id="selectTypeBook" resultType="BookEntity">
+        SELECT * from booklist where type = #{type}
+    </select>
+<!--    List<BookEntity> selectRecommended();-->
+    <select id="selectRecommended" resultType="BookEntity">
+        SELECT * from booklist where recommended>=4
+    </select>
+<!--    Integer updateLikes(Integer id);-->
+    <update id="updateLikes">
+        UPDATE booklist SET likes = likes + 1 WHERE id = #{id};
+    </update>
+<!--    Integer reduceLikes(Integer id) throws IOException;-->
+    <update id="reduceLikes">
+        UPDATE booklist SET likes = likes - 1 WHERE id = #{id};
+    </update>
+<!--    String [] selectSearch(String keyword);-->
+    <select id="selectSearch" resultType="java.lang.String">
+        SELECT result FROM (
+                               SELECT DISTINCT author AS result FROM booklist
+                               WHERE author LIKE CONCAT('%', #{keyword}, '%')
+                               LIMIT 4
+                           ) AS subquery1
+        UNION
+        SELECT result FROM (
+                               SELECT DISTINCT title AS result FROM booklist
+                               WHERE title LIKE CONCAT('%', #{keyword}, '%')
+                               LIMIT 4
+                           ) AS subquery2
+    </select>
+<!--    BookEntity selectID(Integer id) throws  IOException;-->
+    <select id="selectID" resultType="BookEntity">
+        select * from booklist where id=#{id}
+    </select>
+</mapper>

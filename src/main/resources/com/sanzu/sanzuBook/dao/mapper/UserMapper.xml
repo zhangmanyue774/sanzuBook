@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace绑定mapper.xml和接口mapper-->
+<mapper namespace="com.sanzu.sanzuBook.dao.mapper.UserMapper">
+    <!--    UserCVo userCredentials(
+            @Param("account") String account,
+            @Param("password") String password);-->
+    <select id="userCredentials" resultType="com.sanzu.sanzuBook.entity.UserEntity">
+        select username,account,password,avatar,id,isAdmin,ban_duration,unban_date
+        from users
+        where account = #{account}
+        AND password =#{password}
+    </select>
+<!--    UserCVo selectUserMessage(String username)-->
+    <select id="selectUserMessage" resultType="com.sanzu.sanzuBook.vo.UserCVo">
+        select * from users where username=#{username}
+    </select>
+<!--    Integer insertNewUser(Map<String,Object> map) throws IOException;-->
+    <insert id="insertNewUser">
+        INSERT INTO users (account, username, password, avatar)
+        VALUES (#{account},#{username},#{password},#{avatar})
+    </insert>
+<!--Integer updatePassword(@Param("account") String account,
+                           @Param("password") String password) throws IOException;-->
+    <update id="updatePassword">
+        update users set password = #{password} where account = #{account}
+    </update>
+<!--   UserEntity  selectAccount(String account) throws IOException;-->
+    <select id="selectAccount" resultType="UserEntity">
+        select *
+        from users
+        where account = #{account}
+    </select>
+<!--    selectAllUser()-->
+    <select id="selectAllUser" resultType="UserEntity">
+        select id, account,ban_duration,COALESCE(unban_date, 0) AS unban_date,Operation_record
+        FROM users
+        where isAdmin = 0;
+    </select>
+<!--    Integer updateBan(Integer id,Integer day) throws IOException;-->
+    <update id="updateBan">
+        update users set ban_duration = #{day} where id = #{id}
+    </update>
+<!--    Integer updateOperation(@Param("id") Integer id,
+                            @Param("day") Integer day) throws IOException;-->
+    <update id="updateOperation">
+        update users set Operation_record =#{Operation_record} where id=#{id}
+    </update>
+</mapper>

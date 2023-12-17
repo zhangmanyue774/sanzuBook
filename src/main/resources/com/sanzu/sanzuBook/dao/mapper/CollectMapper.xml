@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace绑定mapper.xml和接口mapper-->
+<mapper namespace="com.sanzu.sanzuBook.dao.mapper.CollectMapper">
+<!--    List<CollectEntity> selectCollects(Integer userID);-->
+    <select id="selectCollects" resultType="CollectEntity">
+        SELECT *
+        FROM collect
+        WHERE userID = #{userID}
+        ORDER BY id DESC;
+    </select>
+<!--     Integer insertCollect(Map<String,Object> map);-->
+    <insert id="insertCollect">
+        INSERT INTO collect (userID, cover, title, author,bookID)
+        VALUES (#{userID},#{cover},#{title},#{author},#{bookID})
+    </insert>
+<!--  Integer deleteCollect(
+            @Param("bookId") Integer bookId,
+            @Param("userID") Integer userID) throws IOException; -->
+    <delete id="deleteCollect">
+        DELETE from collect where bookID = #{bookId} AND userID=#{userID};
+    </delete>
+</mapper>
