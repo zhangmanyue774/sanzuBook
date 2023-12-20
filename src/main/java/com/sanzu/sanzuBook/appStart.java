@@ -22,6 +22,7 @@ public class appStart implements ServletContextListener {
         try {
             webSocketServerTest.stop();
             consoleFilter.webSocketServerTest.stop();
+            System.out.println("服务启动");
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
