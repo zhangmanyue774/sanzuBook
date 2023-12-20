@@ -13,7 +13,7 @@ public class appStart implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        webSocketServerTest=new WebSocketServerTest(new InetSocketAddress("172.19.30.111",1314));
+        webSocketServerTest=new WebSocketServerTest(new InetSocketAddress("0.0.0.0",1314));
         webSocketServerTest.start();
     }
 

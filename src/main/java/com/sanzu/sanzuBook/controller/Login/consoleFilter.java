@@ -38,7 +38,7 @@ public class consoleFilter implements Filter {
             if (isTokenValid) {
                 // Token有效，执行后续逻辑
                 if(req.getServletPath().equals("/console")) {
-                    webSocketServerTest =  new WebSocketServerTest(new InetSocketAddress("172.19.30.111",1315));
+                    webSocketServerTest =  new WebSocketServerTest(new InetSocketAddress("0.0.0.0",1315));
                     webSocketServerTest.start();
                     req.getRequestDispatcher("/index.html").forward(req, resp);
                 }
