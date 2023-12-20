@@ -15,6 +15,7 @@ public class appStart implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         webSocketServerTest=new WebSocketServerTest(new InetSocketAddress("172.19.30.111",1314));
         webSocketServerTest.start();
+        System.out.println("推宋成功");
     }
 
     @Override
