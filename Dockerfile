@@ -1,6 +1,6 @@
 FROM xldevops/jdk17-lts
 
-LABEL authors="Santu"
+LABEL authors="santu"
 EXPOSE 8888
 
 USER app
